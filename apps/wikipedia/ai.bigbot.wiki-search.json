@@ -1,0 +1,109 @@
+{
+  "name": "Wiki Search",
+  "package": "ai.bigbot.wiki-search.json",
+  "start": "mkad",
+  "blocks": [
+    {
+      "id": "mkad",
+      "parent_id": -1,
+      "component": "main.Block.PromptText",
+      "properties": [
+        {
+          "name": "primary_text",
+          "value": ["Please submit an image"]
+        }
+      ],
+      "connections": [[1, "tt6h"]]
+    },
+    {
+      "id": "tt6h",
+      "parent_id": "mkad",
+      "component": "main.Block.InputFile",
+      "properties": [
+        {
+          "name": "accept",
+          "value": "image/*"
+        },
+        {
+          "name": "key",
+          "value": "input_image"
+        },
+        {
+          "name": "size",
+          "value": 1000000
+        }
+      ],
+      "connections": [
+        [-1, "mkad"],
+        [1, "najl"]
+      ]
+    },
+    {
+      "id": "najl",
+      "parent_id": "tt6h",
+      "component": "main.Block.PromptText",
+      "properties": [
+        {
+          "name": "primary_text",
+          "value": ["Analizing image"]
+        }
+      ],
+      "connections": [[1, "swtx"]]
+    },
+    {
+      "id": "swtx",
+      "parent_id": "najl",
+      "component": "main.Block.DataExchange",
+      "properties": [
+        {
+          "name": "component",
+          "value": "apps.amazon_rekognition.component.RecognizeImage"
+        },
+        {
+          "name": "input",
+          "value": [["input_image", "input_image"]]
+        },
+        {
+          "name": "output",
+          "value": [["result", "query"]]
+        }
+      ],
+      "connections": [[1, "vcfu"]]
+    },
+    {
+      "id": "vcfu",
+      "parent_id": "swtx",
+      "component": "main.Block.PromptText",
+      "properties": [
+        {
+          "name": "primary_text",
+          "value": ["Looking for Wikipedia page"]
+        }
+      ],
+      "connections": [[1, "z6qp"]]
+    },
+    {
+      "id": "z6qp",
+      "parent_id": "vcfu",
+      "component": "main.Block.DataExchange",
+      "properties": [
+        {
+          "name": "component",
+          "value": "apps.wikipedia.component.WikipediaDESearch"
+        },
+        {
+          "name": "input",
+          "value": [["query", "query"]]
+        }
+      ],
+      "connections": [[1, "91up"]]
+    },
+    {
+      "id": "91up",
+      "parent_id": "z6qp",
+      "component": "main.Block.TerminalBlock",
+      "properties": [],
+      "connections": []
+    }
+  ]
+}

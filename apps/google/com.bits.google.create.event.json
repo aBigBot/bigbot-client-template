@@ -1,0 +1,311 @@
+{
+    "name": "Google Event",
+    "package": "com.bits.google.create.event",
+    "start": "ccmi",
+    "blocks": [
+        {
+            "id": "ccmi",
+            "parent_id": -1,
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Please Signin."
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "fo8a"
+                ]
+            ]
+        },
+        {
+            "id": "fo8a",
+            "parent_id": "ccmi",
+            "component": "main.Block.InputOAuth",
+            "properties": [
+                {
+                    "name": "component",
+                    "value": "apps.google.component.GoogleOAuthProvider"
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "f08a"
+                ],
+                [
+                    1,
+                    "qkb1"
+                ]
+            ]
+        },
+        {
+            "id": "qkb1",
+            "parent_id": "fo8a",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Please enter a title for your event."
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "1d7p"
+                ]
+            ]
+        },
+        {
+            "id": "1d7p",
+            "parent_id": "qkb1",
+            "component": "main.Block.InputText",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "summary"
+                },
+                {
+                    "name": "required",
+                    "value": false
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "qkb1"
+                ],
+                [
+                    1,
+                    "aote"
+                ]
+            ]
+        },
+        {
+            "id": "aote",
+            "parent_id": "1d7p",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Please enter a description for your event."
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "mjk6"
+                ]
+            ]
+        },
+        {
+            "id": "mjk6",
+            "parent_id": "aote",
+            "component": "main.Block.InputText",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "description"
+                },
+                {
+                    "name": "required",
+                    "value": false
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "aote"
+                ],
+                [
+                    1,
+                    "lcr0"
+                ]
+            ]
+        },
+        {
+            "id": "lcr0",
+            "parent_id": "mjk6",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Please Enter start date of your Event."
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "tnlh"
+                ]
+            ]
+        },
+        {
+            "id": "tnlh",
+            "parent_id": "lcr0",
+            "component": "main.Block.InputDate",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "start_date"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "lcr0"
+                ],
+                [
+                    1,
+                    "hz9r"
+                ]
+            ]
+        },
+        {
+            "id": "hz9r",
+            "parent_id": "tnlh",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Please Enter end date of your Event."
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "it6t"
+                ]
+            ]
+        },
+        {
+            "id": "it6t",
+            "parent_id": "hz9r",
+            "component": "main.Block.InputDate",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "end_date"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "hz9r"
+                ],
+                [
+                    1,
+                    "s03t"
+                ]
+            ]
+        },
+        {
+            "id": "s03t",
+            "parent_id": "it6t",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Please enter attendeees email address."
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "fmoo"
+                ]
+            ]
+        },
+        {
+            "id": "fmoo",
+            "parent_id": "s03t",
+            "component": "main.Block.InputEmail",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "required_attendees"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "s03t"
+                ],
+                [
+                    1,
+                    "klqj"
+                ]
+            ]
+        },
+        {
+            "id": "klqj",
+            "parent_id": "meyz",
+            "component": "main.Block.InterpreterSkill",
+            "properties": [
+                {
+                    "name": "component",
+                    "value": "apps.google.component.GoogleCalendarEvent"
+                },
+                {
+                    "name": "nodes",
+                    "value": [
+                        {
+                            "node": "big.bot.core.text",
+                            "data": "{% if result.executed %}\n    Your event has been created successfully.\n{% else %}\n    We got an error while creating your event.\n{% endif %}",
+                            "meta": null,
+                            "is_show": true
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "meyz"
+                ]
+            ]
+        },
+        {
+            "id": "meyz",
+            "parent_id": "lkqj",
+            "component": "main.Block.TerminalBlock",
+            "properties": [
+                {
+                    "name": "action",
+                    "value": null
+                },
+                {
+                    "name": "post_skill",
+                    "value": null
+                }
+            ],
+            "connections": []
+        }
+    ]
+}

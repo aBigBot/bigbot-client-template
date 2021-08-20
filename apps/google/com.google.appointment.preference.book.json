@@ -1,0 +1,320 @@
+{
+    "name": "Google Appointment Book",
+    "package": "com.bits.google.appointment.preference.book",
+    "start": "i6rx",
+    "blocks": [
+        {
+            "id": "i6rx",
+            "parent_id": -1,
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Which appointment you want to book?"
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "9726"
+                ]
+            ]
+        },
+        {
+            "id": "9726",
+            "parent_id": "i6rx",
+            "component": "main.Block.InputSearchable",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "meeting_type"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                },
+                {
+                    "name": "component",
+                    "value": "apps.google.component.ScheduleAppointment"
+                },
+                {
+                    "name": "model",
+                    "value": "user.appointment"
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "i6rx"
+                ],
+                [
+                    1,
+                    "48ra"
+                ]
+            ]
+        },
+        {
+            "id": "48ra",
+            "parent_id": "9726",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Select suitable appointment date."
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "w7t0"
+                ]
+            ]
+        },
+        {
+            "id": "w7t0",
+            "parent_id": "48ra",
+            "component": "main.Block.InputDate",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "anchor_date"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "48ra"
+                ],
+                [
+                    1,
+                    "2fhy"
+                ]
+            ]
+        },
+        {
+            "id": "2fhy",
+            "parent_id": "w7t0",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Select booking time slot."
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "ko4q"
+                ]
+            ]
+        },
+        {
+            "id": "ko4q",
+            "parent_id": "2fhy",
+            "component": "main.Block.InputSearchable",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "appointment_slot"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                },
+                {
+                    "name": "component",
+                    "value": "apps.google.component.ScheduleAppointment"
+                },
+                {
+                    "name": "model",
+                    "value": "appointment_slot"
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "2fhy"
+                ],
+                [
+                    1,
+                    "yngu"
+                ]
+            ]
+        },
+        {
+            "id": "yngu",
+            "parent_id": "ko4q",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Please enter your email address."
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "sy1c"
+                ]
+            ]
+        },
+        {
+            "id": "sy1c",
+            "parent_id": "yngu",
+            "component": "main.Block.InputEmail",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "email"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "yngu"
+                ],
+                [
+                    1,
+                    "z50i"
+                ]
+            ]
+        },
+        {
+            "id": "z50i",
+            "parent_id": "sy1c",
+            "component": "main.Block.InterpreterOAuth",
+            "properties": [
+                {
+                    "name": "component",
+                    "value": "apps.google.component.GoogleOAuthProvider"
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "z50i"
+                ],
+                [
+                    1,
+                    "poob"
+                ]
+            ]
+        },
+        {
+            "id": "poob",
+            "parent_id": "z50i",
+            "component": "main.Block.InterpreterSkill",
+            "properties": [
+                {
+                    "name": "component",
+                    "value": "apps.google.component.ScheduleAppointment"
+                },
+                {
+                    "name": "nodes",
+                    "value": [
+                        {
+                            "node": "big.bot.core.text",
+                            "content": "{% load toolkit %}{% if result %}We appointment {{result.summary}} has been booked <p>From {{ result.start | format_event_date }} to {{ result.end | format_event_date }}.</p>{% else %}Completed your request.{% endif %}"
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "4ow0"
+                ],
+                [
+                    2,
+                    "k92e"
+                ]
+            ]
+        },
+        {
+            "id": "4ow0",
+            "parent_id": "poob",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Appointment Booked"
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "izpz"
+                ]
+            ]
+        },
+        {
+            "id": "k92e",
+            "parent_id": "poob",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Appointment Booking Failed"
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "x38v"
+                ]
+            ]
+        },
+        {
+            "id": "x38v",
+            "parent_id": "k92e",
+            "component": "main.Block.TerminalBlock",
+            "properties": [
+                {
+                    "name": "action",
+                    "value": null
+                },
+                {
+                    "name": "post_skill",
+                    "value": null
+                }
+            ],
+            "connections": []
+        },
+        {
+            "id": "izpz",
+            "parent_id": "4ow0",
+            "component": "main.Block.TerminalBlock",
+            "properties": [
+                {
+                    "name": "action",
+                    "value": null
+                },
+                {
+                    "name": "post_skill",
+                    "value": null
+                }
+            ],
+            "connections": []
+        }
+    ]
+}

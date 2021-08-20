@@ -1,0 +1,11 @@
+{
+  "name": "Amazon Rekognition",
+  "version": 1.0,
+  "maintainer" : "Jonathan Lee <jonathan@bigbot.ai>",
+  "summary": "Big Bot image recognition using Amazon Rekognition",
+  "description": "Amazon Rekognition makes it easy to add image and video analysis to your applications using proven, highly scalable, deep learning technology.",
+  "category": "productivity",
+  "author": "BIG BOTS (PRIVATE LIMITED)",
+  "website": "https://bigbot.ai",
+  "auto_install": true
+}

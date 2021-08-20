@@ -1,0 +1,223 @@
+# Copyright 2015 Google Inc.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License
+
+# This file configures the bigbot application . The frontend serves
+# public web traffic.
+
+# The bookshelf frontend replication controller ensures that at least 3
+# instances of the bookshelf app are running on the cluster.
+# For more info about Pods see:
+#   https://cloud.google.com/container-engine/docs/pods/
+# For more info about Deployments:
+#   https://kubernetes.io/docs/user-guide/deployments/
+
+# [START namespace ]
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: NAMESPACE
+# [END namespace]
+
+---
+
+# [START cloud_sql_secret]
+apiVersion: v1
+data:
+  credentials.json: CREDENTIALS_JSON
+kind: Secret
+metadata:
+  name: cloudsql-oauth-credentials-APPNAME-ENVIRONMENT
+  namespace: NAMESPACE
+type: Opaque
+# [END cloud_sql_secret]
+
+---
+
+# [START cloud_sql_oauth_secret]
+apiVersion: v1
+data:
+  password: PASSWORD_VALUE
+  username: USERNAME_VALUE
+  database: DATABASE_NAME_VALUE
+kind: Secret
+metadata:
+  name: cloudsql-APPNAME-ENVIRONMENT
+  namespace: NAMESPACE
+type: Opaque
+# [END cloud_sql_oauth_secret]
+
+---
+
+# [START APPNAME-ENVIRONMENT_secrets]
+apiVersion: v1
+data:
+  password: SUPERUSER_PASS_VALUE
+  username: SUPERUSER_VALUE
+kind: Secret
+metadata:
+  name: APPNAME-ENVIRONMENT
+  namespace: NAMESPACE
+type: Opaque
+# [END APPNAME-ENVIRONMENT_secrets]
+
+---
+# [START kubernetes_deployment]
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  namespace: NAMESPACE
+  name: APPNAME-ENVIRONMENT
+  labels:
+    app: APPNAME-ENVIRONMENT
+    environment: ENVIRONMENT
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: APPNAME-ENVIRONMENT
+    spec:
+      containers:
+      - name: bigbot-app
+        # Replace  with your project ID or use `make template`
+        image: asia.gcr.io/GCP_PROJECT_ID_VALUE/IMAGE_NAME_VALUE:TAG_VALUE
+        # This setting makes nodes pull the docker image every time before
+        # starting the pod. This is useful when debugging, but should be turned
+        # off in production.
+        imagePullPolicy: Always
+        env:
+            # [START cloudsql_secrets]
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: cloudsql-APPNAME-ENVIRONMENT
+                  key: username
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cloudsql-APPNAME-ENVIRONMENT
+                  key: password
+            - name: DATABASE_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: cloudsql-APPNAME-ENVIRONMENT
+                  key: database
+            - name: SUPERUSER_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: cloudsql-APPNAME-ENVIRONMENT
+                  key: password
+            - name: SUPERUSER
+              valueFrom:
+                secretKeyRef:
+                  name: cloudsql-APPNAME-ENVIRONMENT
+                  key: username
+            - name: BUCKET_NAME
+              value: BUCKET_NAME_VALUE
+            # [END cloudsql_secrets]
+        ports:
+        - containerPort: 8080
+
+      # [START proxy_container]
+      - image: asia.gcr.io/cloudsql-docker/gce-proxy:1.16
+        name: cloudsql-proxy
+        command: ["/cloud_sql_proxy", "--dir=/cloudsql",
+                  "-instances=CLOUDSQL_CONNECTION_STRING=tcp:5432",
+                  "-credential_file=/secrets/cloudsql/credentials.json"]
+        ports:
+        - containerPort: 5432
+        volumeMounts:
+          - name: cloudsql-oauth-credentials-APPNAME-ENVIRONMENT
+            mountPath: /secrets/cloudsql
+            readOnly: true
+          - name: ssl-certs
+            mountPath: /etc/ssl/certs
+          - name: cloudsql-APPNAME-ENVIRONMENT
+            mountPath: /cloudsql
+      # [END proxy_container] 
+      # [START volumes]
+      volumes:
+        - name: cloudsql-oauth-credentials-APPNAME-ENVIRONMENT
+          secret:
+            secretName: cloudsql-oauth-credentials-APPNAME-ENVIRONMENT
+        - name: ssl-certs
+          hostPath:
+            path: /etc/ssl/certs
+        - name: cloudsql-APPNAME-ENVIRONMENT
+          emptyDir:
+      # [END volumes]        
+# [END kubernetes_deployment]
+
+---
+
+
+# [START service]
+# The bigbot service provides a load-balancing proxy over the bigbot app
+# pods. By specifying the type as a 'LoadBalancer', Container Engine will
+# create an external HTTP load balancer.
+# For more information about Services see:
+#   https://cloud.google.com/container-engine/docs/services/
+# For more information about external HTTP load balancing see:
+#   https://cloud.google.com/container-engine/docs/load-balancer
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: NAMESPACE
+  name: APPNAME-ENVIRONMENT
+  labels:
+    app: APPNAME-ENVIRONMENT
+    environment: ENVIRONMENT
+spec:
+  type: ClusterIP
+  ports:
+  - port: 80
+    targetPort: 8080
+    name: main
+  - port: 5432
+    targetPort: 5432
+    name: cloud-sql-proxy
+  selector:
+    app: APPNAME-ENVIRONMENT 
+# [END service]
+
+---
+
+# [START ingress]
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  namespace: NAMESPACE
+  name: APPNAME-ENVIRONMENT
+  annotations:
+    kubernetes.io/ingress.class: "nginx" 
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/proxy-body-size: "1024m"
+    nginx.ingress.kubernetes.io/proxy-send-timeout: "5400"
+    nginx.ingress.kubernetes.io/proxy-read-timeout: "5400" 
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: "3600"
+    nginx.ingress.kubernetes.io/proxy-redirect-from: "off"           
+spec:
+  tls:
+  - hosts:
+    - HOSTNAME
+    secretName: APPNAME-ENVIRONMENT-tls
+  rules:
+  - host: HOSTNAME
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: APPNAME-ENVIRONMENT
+          servicePort: main
+# [END ingress]

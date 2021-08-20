@@ -1,0 +1,12 @@
+{
+    "name": "Bigbot",
+    "version": "1.0.0",
+    "maintainer" : "Jonathan Lee <jonathan@bigbot.ai>",
+    "summary": "Bigbot Outlook Calendar",
+    "description": "Outlook Calendar is a time-management and scheduling calendar service.",
+    "category": "productivity",
+    "cover": "https://www.logo.wine/a/logo/Outlook.com/Outlook.com-Logo.wine.svg",
+    "author": "BIG BOTS (PRIVATE LIMITED)",
+    "website": "https://bigbot.ai",
+    "auto_install": true
+}

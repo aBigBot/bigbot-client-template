@@ -1,0 +1,11 @@
+{
+  "name": "Adobe Sign Event",
+  "version": 1.0,
+  "maintainer" : "Jonathan Lee <jonathan@bigbot.ai>",
+  "summary": "Big Bot Adobe Sign",
+  "description": "Adobe Sign is a cloud-based e-signature service that allows the user to send, sign, track, and manage signature processes using a browser or mobile device.",
+  "category": "productivity",
+  "author": "BIG BOTS (PRIVATE LIMITED)",
+  "website": "https://bigbot.ai",
+  "auto_install": true
+}

@@ -1,0 +1,662 @@
+{
+    "name": "Google Appointment Create",
+    "package": "com.bits.google.appointment.preference.create",
+    "start": "4hg8",
+    "blocks": [
+        {
+            "id": "4hg8",
+            "parent_id": -1,
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Please enter the type for your appointment."
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "rgq2"
+                ]
+            ]
+        },
+        {
+            "id": "rgq2",
+            "parent_id": "4hg8",
+            "component": "main.Block.InputText",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "meeting_type"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "4hg8"
+                ],
+                [
+                    1,
+                    "y89o"
+                ]
+            ]
+        },
+        {
+            "id": "y89o",
+            "parent_id": "rgq2",
+            "component": "main.Block.InputOAuth",
+            "properties": [
+                {
+                    "name": "component",
+                    "value": "apps.google.component.GoogleOAuthProvider"
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "lkdp"
+                ],
+                [
+                    -1,
+                    "y89o"
+                ]
+            ]
+        },
+        {
+            "id": "lkdp",
+            "parent_id": "y89o",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Select the Calender you want to include."
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "3a25"
+                ]
+            ]
+        },
+        {
+            "id": "3a25",
+            "parent_id": "lkdp",
+            "component": "main.Block.InputSearchable",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "calendar_ids"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                },
+                {
+                    "name": "component",
+                    "value": "apps.google.component.GoogleScheduleAppointment"
+                },
+                {
+                    "name": "model",
+                    "value": "google.calender"
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "lkdp"
+                ],
+                [
+                    1,
+                    "o7ap"
+                ]
+            ]
+        },
+        {
+            "id": "o7ap",
+            "parent_id": "3a25",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Which Calendar you want to user for appointment?"
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "9qf2"
+                ]
+            ]
+        },
+        {
+            "id": "9qf2",
+            "parent_id": "o7ap",
+            "component": "main.Block.InputSearchable",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "calendar_id"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                },
+                {
+                    "name": "component",
+                    "value": "apps.google.component.GoogleScheduleAppointment"
+                },
+                {
+                    "name": "model",
+                    "value": "google.calendar.selection"
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "o7ap"
+                ],
+                [
+                    1,
+                    "ntgh"
+                ]
+            ]
+        },
+        {
+            "id": "ntgh",
+            "parent_id": "9qf2",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "What slot duration you want to set?"
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "xp01"
+                ]
+            ]
+        },
+        {
+            "id": "xp01",
+            "parent_id": "ntgh",
+            "component": "main.Block.InputDuration",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "slot_duration"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "ntgh"
+                ],
+                [
+                    1,
+                    "v5r1"
+                ]
+            ]
+        },
+        {
+            "id": "v5r1",
+            "parent_id": "xp01",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "What date you want to start with ?"
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "vlqb"
+                ]
+            ]
+        },
+        {
+            "id": "vlqb",
+            "parent_id": "v5r1",
+            "component": "main.Block.InputDate",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "from_date"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "v5r1"
+                ],
+                [
+                    1,
+                    "4knj"
+                ]
+            ]
+        },
+        {
+            "id": "4knj",
+            "parent_id": "vlqb",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Till Which date this schedule up-to ?"
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "w0i1"
+                ]
+            ]
+        },
+        {
+            "id": "w0i1",
+            "parent_id": "4knj",
+            "component": "main.Block.InputDate",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "till_date"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "4knj"
+                ],
+                [
+                    1,
+                    "utu8"
+                ]
+            ]
+        },
+        {
+            "id": "utu8",
+            "parent_id": "w0i1",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "How much break required between two appointment?"
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "aztm"
+                ]
+            ]
+        },
+        {
+            "id": "aztm",
+            "parent_id": "utu8",
+            "component": "main.Block.InputDuration",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "slot_interval"
+                },
+                {
+                    "name": "required",
+                    "value": false
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "utu8"
+                ],
+                [
+                    1,
+                    "stvu"
+                ]
+            ]
+        },
+        {
+            "id": "stvu",
+            "parent_id": "aztm",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "What timing suits better for you?"
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "xddu"
+                ]
+            ]
+        },
+        {
+            "id": "xddu",
+            "parent_id": "stvu",
+            "component": "main.Block.InputSelection",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "slot_time_range"
+                },
+                {
+                    "name": "required",
+                    "value": false
+                },
+                {
+                    "name": "selections",
+                    "value": [
+                        [
+                            "0",
+                            "10 AM to 04PM"
+                        ],
+                        [
+                            "1",
+                            "12 PM to 06 PM"
+                        ],
+                        [
+                            "2",
+                            "02 PM to 8 PM"
+                        ],
+                        [
+                            "3",
+                            "04 PM to 10 PM"
+                        ]
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "stvu"
+                ],
+                [
+                    1,
+                    "qbjm"
+                ]
+            ]
+        },
+        {
+            "id": "qbjm",
+            "parent_id": "xddu",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Please enter meeting description or short summary."
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "apkw"
+                ]
+            ]
+        },
+        {
+            "id": "apkw",
+            "parent_id": "qbjm",
+            "component": "main.Block.InputText",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "description"
+                },
+                {
+                    "name": "required",
+                    "value": false
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "qbjm"
+                ],
+                [
+                    1,
+                    "ezbd"
+                ]
+            ]
+        },
+        {
+            "id": "ezbd",
+            "parent_id": "apkw",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Is Google meeting required?"
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "k9ja"
+                ]
+            ]
+        },
+        {
+            "id": "k9ja",
+            "parent_id": "ezbd",
+            "component": "main.Block.InputSelection",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "google_meet"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                },
+                {
+                    "name": "selections",
+                    "value": [
+                        [
+                            "0",
+                            "No"
+                        ],
+                        [
+                            "1",
+                            "Yes"
+                        ]
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "ezbd"
+                ],
+                [
+                    1,
+                    "d5og"
+                ]
+            ]
+        },
+        {
+            "id": "d5og",
+            "parent_id": "k9ja",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Any Meeting location you want to set?"
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "ojdh"
+                ]
+            ]
+        },
+        {
+            "id": "ojdh",
+            "parent_id": "d5og",
+            "component": "main.Block.InputText",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "location"
+                },
+                {
+                    "name": "required",
+                    "value": false
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "d5og"
+                ],
+                [
+                    1,
+                    "rly8"
+                ]
+            ]
+        },
+        {
+            "id": "rly8",
+            "parent_id": "ojdh",
+            "component": "main.Block.InterpreterSkill",
+            "properties": [
+                {
+                    "name": "component",
+                    "value": "apps.google.component.GoogleScheduleAppointment"
+                },
+                {
+                    "name": "nodes",
+                    "value": [
+                        {
+                            "node": "big.bot.core.text",
+                            "content": "{{user}}, you all set for {{result.meeting_type}}, we keep you posted."
+                        }
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "cbbg"
+                ],
+                [
+                    2,
+                    "hyt5"
+                ]
+            ]
+        },
+        {
+            "id": "cbbg",
+            "parent_id": "rly8",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Appointment Created"
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "z3e5"
+                ]
+            ]
+        },
+        {
+            "id": "hyt5",
+            "parent_id": "rly8",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": [
+                        "Appointment creation failed"
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "fg2f"
+                ]
+            ]
+        },
+        {
+            "id": "z3e5",
+            "parent_id": "cbbg",
+            "component": "main.Block.TerminalBlock",
+            "properties": [
+                {
+                    "name": "action",
+                    "value": null
+                },
+                {
+                    "name": "post_skill",
+                    "value": null
+                }
+            ],
+            "connections": []
+        },
+        {
+            "id": "fg2f",
+            "parent_id": "hyt5",
+            "component": "main.Block.TerminalBlock",
+            "properties": [
+                {
+                    "name": "action",
+                    "value": null
+                },
+                {
+                    "name": "post_skill",
+                    "value": null
+                }
+            ],
+            "connections": []
+        }
+    ]
+}

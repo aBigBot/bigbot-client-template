@@ -1,0 +1,384 @@
+{
+	"name": "Route for schedule",
+	"package": "google.route.for.schedule",
+	"start": "22to",
+	"blocks": [
+		{
+			"id": "22to",
+			"parent_id": -1,
+			"component": "main.Block.InputOAuth",
+			"properties": [
+				{
+					"name": "component",
+					"value": "apps.google.component.GoogleOAuthProvider"
+				}
+			],
+			"connections": [
+				[
+					-1,
+					"22to"
+				],
+				[
+					1,
+					"9g7o"
+				]
+			]
+		},
+		{
+			"id": "9g7o",
+			"parent_id": "22to",
+			"component": "main.Block.PromptText",
+			"properties": [
+				{
+					"name": "primary_text",
+					"value": [
+						"Which calendar you want to use for this action?"
+					]
+				}
+			],
+			"connections": [
+				[
+					1,
+					"eugb"
+				]
+			]
+		},
+		{
+			"id": "eugb",
+			"parent_id": "9g7o",
+			"component": "main.Block.InputSearchable",
+			"properties": [
+				{
+					"name": "key",
+					"value": "calendar_id"
+				},
+				{
+					"name": "required",
+					"value": true
+				},
+				{
+					"name": "component",
+					"value": "apps.google.component.RouteForScheduleProvider"
+				},
+				{
+					"name": "model",
+					"value": null
+				}
+			],
+			"connections": [
+				[
+					-1,
+					"9g7o"
+				],
+				[
+					1,
+					"oidj"
+				]
+			]
+		},
+		{
+			"id": "oidj",
+			"parent_id": "eugb",
+			"component": "main.Block.PromptText",
+			"properties": [
+				{
+					"name": "primary_text",
+					"value": [
+						"Select the starting date and time for this schedule."
+					]
+				}
+			],
+			"connections": [
+				[
+					1,
+					"7wpr"
+				]
+			]
+		},
+		{
+			"id": "7wpr",
+			"parent_id": "oidj",
+			"component": "main.Block.InputDateTime",
+			"properties": [
+				{
+					"name": "key",
+					"value": "start_datetime"
+				},
+				{
+					"name": "required",
+					"value": true
+				}
+			],
+			"connections": [
+				[
+					-1,
+					"oidj"
+				],
+				[
+					1,
+					"4izt"
+				]
+			]
+		},
+		{
+			"id": "4izt",
+			"parent_id": "7wpr",
+			"component": "main.Block.PromptText",
+			"properties": [
+				{
+					"name": "primary_text",
+					"value": [
+						"Please enter the postal code of your starting point."
+					]
+				}
+			],
+			"connections": [
+				[
+					1,
+					"r64s"
+				]
+			]
+		},
+		{
+			"id": "r64s",
+			"parent_id": "4izt",
+			"component": "main.Block.InputText",
+			"properties": [
+				{
+					"name": "key",
+					"value": "start_place"
+				},
+				{
+					"name": "required",
+					"value": true
+				}
+			],
+			"connections": [
+				[
+					-1,
+					"4izt"
+				],
+				[
+					1,
+					"23au"
+				]
+			]
+		},
+		{
+			"id": "23au",
+			"parent_id": "r64s",
+			"component": "main.Block.PromptText",
+			"properties": [
+				{
+					"name": "primary_text",
+					"value": [
+						"Please enter the postal code of a destination."
+					]
+				}
+			],
+			"connections": [
+				[
+					1,
+					"heyc"
+				]
+			]
+		},
+		{
+			"id": "heyc",
+			"parent_id": "23au",
+			"component": "main.Block.InputText",
+			"properties": [
+				{
+					"name": "key",
+					"value": "destination"
+				},
+				{
+					"name": "required",
+					"value": true
+				}
+			],
+			"connections": [
+				[
+					-1,
+					"23au"
+				],
+				[
+					1,
+					"q59y"
+				]
+			]
+		},
+		{
+			"id": "q59y",
+			"parent_id": "heyc",
+			"component": "main.Block.PromptText",
+			"properties": [
+				{
+					"name": "primary_text",
+					"value": [
+						"Please enter a title for this location."
+					]
+				}
+			],
+			"connections": [
+				[
+					1,
+					"d9co"
+				]
+			]
+		},
+		{
+			"id": "d9co",
+			"parent_id": "q59y",
+			"component": "main.Block.InputText",
+			"properties": [
+				{
+					"name": "key",
+					"value": "title"
+				},
+				{
+					"name": "required",
+					"value": true
+				}
+			],
+			"connections": [
+				[
+					-1,
+					"q59y"
+				],
+				[
+					1,
+					"fwpd"
+				]
+			]
+		},
+		{
+			"id": "fwpd",
+			"parent_id": "d9co",
+			"component": "main.Block.PromptText",
+			"properties": [
+				{
+					"name": "primary_text",
+					"value": [
+						"How much time will you spend in this destination?"
+					]
+				}
+			],
+			"connections": [
+				[
+					1,
+					"f7b3"
+				]
+			]
+		},
+		{
+			"id": "f7b3",
+			"parent_id": "fwpd",
+			"component": "main.Block.InputDuration",
+			"properties": [
+				{
+					"name": "key",
+					"value": "duration"
+				},
+				{
+					"name": "required",
+					"value": true
+				}
+			],
+			"connections": [
+				[
+					-1,
+					"fwpd"
+				],
+				[
+					1,
+					"36ou"
+				]
+			]
+		},
+		{
+			"id": "36ou",
+			"parent_id": "f7b3",
+			"component": "main.Block.InputLoop",
+			"properties": [
+				{
+					"name": "key",
+					"value": "loop_1"
+				},
+				{
+					"name": "required",
+					"value": true
+				},
+                                {
+					"name": "loop_question",
+					"value": "Do you want to add another destination?"
+				},
+				{
+					"name": "accept_text",
+					"value": "Yes"
+				},
+				{
+					"name": "skip_text",
+					"value": "No"
+				}
+			],
+			"connections": [
+				[
+					-1,
+					"f7b3"
+				],
+                [
+                    0,
+                    "23au"
+                ],
+				[
+					1,
+					"sn69"
+				]
+			]
+		},
+		{
+			"id": "sn69",
+			"parent_id": "36ou",
+			"component": "main.Block.InterpreterSkill",
+			"properties": [
+				{
+					"name": "component",
+					"value": "apps.google.component.RouteForScheduleProvider"
+				},
+				{
+					"name": "nodes",
+					"value": [
+					]
+				}
+			],
+			"connections": [
+				[
+					1,
+					"15om"
+				]
+			]
+		},
+		{
+			"id": "15om",
+			"parent_id": "sn69",
+			"component": "main.Block.TerminalBlock",
+			"properties": [
+				{
+					"name": "action",
+					"value": 0
+				},
+				{
+					"name": "post_skill",
+					"value": null
+				},
+				{
+					"name": "template",
+					"value": null
+				}
+			],
+			"connections": [
+			]
+		}
+	]
+}

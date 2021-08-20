@@ -1,0 +1,12 @@
+{
+  "name": "Wikipedia",
+  "version": "0.1.0",
+  "maintainer" : "Jonathan Lee <jonathan@bigbot.ai>",
+  "summary": "Search Wikipedia",
+  "description": "Search Wikipedia",
+  "category": "misc",
+  "cover": "",
+  "author": "BIG BOTS (PRIVATE LIMITED)",
+  "website": "https://bigbot.ai",
+  "auto_install": true
+}

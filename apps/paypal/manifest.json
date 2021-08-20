@@ -1,0 +1,12 @@
+{
+  "name": "Paypal",
+  "version": "1.1.0",
+  "maintainer": "Jonathan Lee <jonathan@bigbot.ai>",
+  "summary": "Paypal checkout demo",
+  "description": "Paypal checkout api integration",
+  "category": "productivity",
+  "cover": "https://www.logo.wine/a/logo/Outlook.com/Outlook.com-Logo.wine.svg",
+  "author": "BIG BOTS (PRIVATE LIMITED)",
+  "website": "https://bigbot.ai",
+  "auto_install": true
+}

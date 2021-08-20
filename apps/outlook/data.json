@@ -1,0 +1,45 @@
+[
+    {
+   "name": "Add Event (Outlook)",
+   "package": "com.bits.google.create.event",
+   "input_arch": [
+    {
+     "field": "summary",
+     "type": "text",
+     "string": "Please enter a title for your event.",
+     "required": false
+    },
+    {
+     "field": "description",
+     "type": "text",
+     "string": "Please enter a description for your event.",
+     "required": false
+    },
+    {
+     "field": "start_date",
+     "type": "date",
+     "string": "Please enter a start date for your event.",
+     "required": true
+    },
+    {
+     "field": "end_date",
+     "type": "date",
+     "string": "Please enter end date for your event.",
+     "required": true
+    },
+    {
+     "field": "required_attendees",
+     "type": "text",
+     "string": "Please enter attendees email address.",
+     "required": true
+    }
+   ],
+   "response_arch": [
+    {
+     "node": "big.bot.core.text",
+     "content": "{% if result.success %} Your event has been created successfully. {% else %} We got an error while creating your event: {{result.error}} {% endif %}"
+    }
+   ]
+  }
+  ]
+  

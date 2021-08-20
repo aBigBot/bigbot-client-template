@@ -1,0 +1,141 @@
+{
+  "name": "Multi-Day Event (Google)",
+  "package": "com.bits.google.create.event",
+  "provider": "google",
+  "blocks" : [
+    {
+      "id": "blzb",
+      "parent_id": "-1",
+      "component": "main.Block.InterpreterSkill",
+      "properties": [
+        {
+          "name": "component",
+          "value": "apps.google.component.GoogleCalendarEvent"
+        },
+        {
+          "name": "nodes",
+          "value": [
+            {
+              "node": "big.bot.core.text",
+              "content": "Result: {{ result }}"
+            }
+          ]
+        }
+      ],
+      "connections": []
+    },
+    {
+      "id": "vfaj",
+      "parent_id" : "blzb",
+      "component" : "main.Block.PromptText",
+      "properties" : [
+        {
+        "name": "primary_text",
+        "value" : [
+          "Please enter a title for your event."
+        ]
+        }
+      ],
+      "connections" : [
+        [
+          1,
+          "cw3f"
+        ]
+      ]
+    },
+    {
+      "id" : "cw3f",
+      "parent_id" : "vfaj",
+      "component": "main.Block.PromptText",
+      "properties": [
+        {
+          "name" : "primary_text",
+          "value" : [
+            "Please enter a description for your event."
+          ]
+        }
+      ],
+      "connections": [
+        1,
+        "smak"
+      ]
+    },
+    {
+      "id" : "smak",
+      "parent_id" : "cw3f",
+      "component": "main.Block.Date",
+      "properties": [
+        {
+          "name" : "date",
+          "value" : [
+            "Please enter a start date for your event."
+          ]
+        }
+      ],
+      "connections": [
+        1,
+        "0t4u"
+      ]
+    },
+    {
+      "id" : "0t4u",
+      "parent_id" : "smak",
+      "component": "main.Block.Date",
+      "properties": [
+        {
+          "name" : "end_date",
+          "value" : [
+            "Please enter end date for your event."
+          ]
+        }
+      ],
+      "connections": [
+        1,
+        "05fw"
+      ]
+    },
+    {
+      "id" : "05fw",
+      "parent_id" : "0t4u",
+      "component": "main.Block.PromptText",
+      "properties": [
+        {
+          "name" : "email",
+          "value" : [
+            "Please enter attendeees email address."
+          ]
+        }
+      ],
+      "connections": [1, "lnmt"]
+    },
+    
+    {
+      "id": "05fw",
+      "parent_id": "0t4u",
+      "component": "main.Block.InputEmail",
+      "properties": [
+        {
+          "name": "key",
+          "value": ["email."]
+        }
+      ],
+      "connections": [1, "lnmt"]
+    },
+    {
+      "id": "lnmt",
+      "parent_id": "05fw",
+      "component": "main.Block.TerminalBlock",
+      "properties": [
+        {
+          "name": "action",
+          "value": 1
+        },
+        {
+          "name": "post_skill",
+          "value": "com.bits.google.create.event"
+        }
+      ],
+      "connections": []
+    }
+  ]
+}

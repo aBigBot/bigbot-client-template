@@ -1,0 +1,64 @@
+{
+  "name": "Payment Demo",
+  "package": "paymentdemoflow",
+  "start": "5jvm",
+  "blocks": [
+    {
+      "id": "5jvm",
+      "parent_id": -1,
+      "component": "main.Block.PromptText",
+      "properties": [
+        {
+          "name": "primary_text",
+          "value": [
+            "The test card number for the Stripe integration is 4242 4242 4242 4242."
+          ]
+        }
+      ],
+      "connections": [[1, "wcqh"]]
+    },
+    {
+      "id": "wcqh",
+      "parent_id": "5jvm",
+      "component": "main.Block.InputPayment",
+      "properties": [
+        {
+          "name": "amount",
+          "value": 8.88
+        }
+      ],
+      "connections": [
+        [-1, "wcqh"],
+        [1, "3lf3"]
+      ]
+    },
+    {
+      "id": "3lf3",
+      "parent_id": "wcqh",
+      "component": "main.Block.PromptText",
+      "properties": [
+        {
+          "name": "primary_text",
+          "value": ["Payment received - thank you!"]
+        }
+      ],
+      "connections": [[1, "9b09"]]
+    },
+    {
+      "id": "9b09",
+      "parent_id": "3lf3",
+      "component": "main.Block.TerminalBlock",
+      "properties": [
+        {
+          "name": "action",
+          "value": 0
+        },
+        {
+          "name": "post_skill",
+          "value": null
+        }
+      ],
+      "connections": []
+    }
+  ]
+}

@@ -1,0 +1,642 @@
+{
+    "name": "Google Create Schedule ",
+    "package": "com.bigbot.google.appointment.schedule",
+    "start": "mv3x",
+    "blocks": [
+        {
+            "id": "mv3x",
+            "parent_id": -1,
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": ["Plese enter title for your appointment."]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "xthf"
+                ]
+            ]
+        },
+        {
+            "id": "xthf",
+            "parent_id": "mv3x",
+            "component": "main.Block.InputText",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "summary"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "mv3x"
+                ],
+                [
+                    1,
+                    "igie"
+                ]
+            ]
+        },
+        {
+            "id": "gfb2",
+            "parent_id": "xthf",
+            "component": "main.Block.InputOAuth",
+            "properties": [
+                {
+                    "name": "component",
+                    "value": "apps.google.component.GoogleOAuthProvider"
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "gfb2"
+                ],
+                [
+                    1,
+                    "igie"
+                ]
+                ]
+        },
+        {
+            "id": "igie",
+            "parent_id": "gfb2",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": ["Which calendar you want to use?"]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "ck5x"
+                ]
+            ]
+        },
+        {
+            "id": "ck5x",
+            "parent_id": "igie",
+            "component": "main.Block.InputSearchable",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "calendar_id"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                },
+                {
+                    "name": "component",
+                    "value": "apps.google.component.GoogleScheduleAppointment"
+                },
+                {
+                    "name": "model",
+                    "value": "google.calendar"
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "igie"
+                ],
+                [
+                    1,
+                    "1f5z"
+                ]
+            ]
+        },
+        {
+            "id": "1f5z",
+            "parent_id": "ck5x",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": ["Required user login for appointment?"]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "w3zu"
+                ]
+            ]
+        },
+        {
+            "id": "w3zu",
+            "parent_id": "1f5z",
+            "component": "main.Block.InputSelection",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "authentication_required"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                },
+                {
+                    "name": "selections",
+                    "value": [
+                        [
+                            "0",
+                            "No"
+                           ],
+                           [
+                            "1",
+                            "Yes"
+                           ]
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "1f5z"
+                ],
+                [
+                    1,
+                    "k681"
+                ]
+            ]
+        },
+        {
+            "id": "k681",
+            "parent_id": "w3zu",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": ["Is this appointment takes all days?"]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "xxi9"
+                ]
+            ]
+        },
+        {
+            "id": "xxi9",
+            "parent_id": "k681",
+            "component": "main.Block.InputSelection",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "all_day"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                },
+                {
+                    "name": "selections",
+                    "value": [
+                        [
+                            "0",
+                            "No"
+                           ],
+                           [
+                            "1",
+                            "Yes"
+                           ]
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "k681"
+                ],
+                [
+                    1,
+                    "keqh"
+                ]
+            ]
+        },
+        {
+            "id": "keqh",
+            "parent_id": "xxi9",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": ["Please select start date."]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "8jlm"
+                ]
+            ]
+        },
+        {
+            "id": "8jlm",
+            "parent_id": "keqh",
+            "component": "main.Block.InputDate",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "start_date"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "keqh"
+                ],
+                [
+                    1,
+                    "h3su"
+                ]
+            ]
+        },
+        {
+            "id": "h3su",
+            "parent_id": "8jlm",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": ["Please select end date."]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "m3pc"
+                ]
+            ]
+        },
+        {
+            "id": "m3pc",
+            "parent_id": "h3su",
+            "component": "main.Block.InputDate",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "end_date"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "h3su"
+                ],
+                [
+                    1,
+                    "ygl2"
+                ]
+            ]
+        },
+        {
+            "id": "ygl2",
+            "parent_id": "m3pc",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": ["Please select start date and time."]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "mr2q"
+                ]
+            ]
+        },
+        {
+            "id": "mr2q",
+            "parent_id": "ygl2",
+            "component": "main.Block.InputDateTime",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "start_datetime"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "ygl2"
+                ],
+                [
+                    1,
+                    "6ow1"
+                ]
+            ]
+        },
+        {
+            "id": "6ow1",
+            "parent_id": "mr2q",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": ["How much time it will take ?"]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "ceg0"
+                ]
+            ]
+        },
+        {
+            "id": "ceg0",
+            "parent_id": "6ow1",
+            "component": "main.Block.InputDuration",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "duration"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "6ow1"
+                ],
+                [
+                    1,
+                    "z4hg"
+                ]
+            ]
+        },
+        {
+            "id": "z4hg",
+            "parent_id": "ceg0",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": ["Please enter meeting description or short summary. "]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "4ya9"
+                ]
+            ]
+        },
+        {
+            "id": "4ya9",
+            "parent_id": "z4hg",
+            "component": "main.Block.InputText",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "description"
+                },
+                {
+                    "name": "required",
+                    "value": false
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "z4hg"
+                ],
+                [
+                    1,
+                    "q5ny"
+                ]
+            ]
+        },
+        {
+            "id": "q5ny",
+            "parent_id": "4ya9",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": ["Is there google meeting required?"]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "ht9r"
+                ]
+            ]
+        },
+        {
+            "id": "ht9r",
+            "parent_id": "q5ny",
+            "component": "main.Block.InputSelection",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "googe_meet"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                },
+                {
+                    "name": "selections",
+                    "value": [
+                        [
+                            "0",
+                            "No"
+                           ],
+                           [
+                            "1",
+                            "Yes"
+                           ]
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "q5ny"
+                ],
+                [
+                    1,
+                    "hbzr"
+                ]
+            ]
+        },
+        {
+            "id": "hbzr",
+            "parent_id": "ht9r",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": ["Any meeting location you want to set?"]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "4a34"
+                ]
+            ]
+        },
+        {
+            "id": "4a34",
+            "parent_id": "hbzr",
+            "component": "main.Block.InputText",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "location"
+                },
+                {
+                    "name": "required",
+                    "value": false
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "hbzr"
+                ],
+                [
+                    1,
+                    "b45c"
+                ]
+            ]
+        },
+        {
+            "id": "b45c",
+            "parent_id": "4a34",
+            "component": "main.Block.PromptText",
+            "properties": [
+                {
+                    "name": "primary_text",
+                    "value": ["Select interval best suited for appointment?"]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "8x99"
+                ]
+            ]
+        },
+        {
+            "id": "8x99",
+            "parent_id": "b45c",
+            "component": "main.Block.InputSelection",
+            "properties": [
+                {
+                    "name": "key",
+                    "value": "interval"
+                },
+                {
+                    "name": "required",
+                    "value": true
+                },
+                {
+                    "name": "selections",
+                    "value": [
+                        [
+                            "90",
+                            "Each 90 Minutes"
+                           ],
+                           [
+                            "180",
+                            "3 Hours"
+                           ],
+                           [
+                            "240",
+                            "4 Hours"
+                           ],
+                           [
+                            "360",
+                            "6 Hours"
+                           ]
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    -1,
+                    "b45c"
+                ],
+                [
+                    1,
+                    "cg68"
+                ]
+            ]
+        },
+        {
+            "id": "cg68",
+            "parent_id": "8x99",
+            "component": "main.Block.InterpreterSkill",
+            "properties": [
+                {
+                    "name": "component",
+                    "value": "apps.google.component.GoogleScheduleAppointment"
+                },
+                {
+                    "name": "nodes",
+                    "value": [
+                        {
+                            "node": "big.bot.core.text",
+                            "content": "We have scheduled {{input.summary}}. With following booking slots: </br>    <p>Form {{ item.start | format_event_date }} to {{ item.end | format_event_date }}.</p>"
+                           }
+                    ]
+                }
+            ],
+            "connections": [
+                [
+                    1,
+                    "wier"
+                ]
+            ]
+        },
+        {
+            "id": "wier",
+            "parent_id": "cg68",
+            "component": "main.Block.TerminalBlock",
+            "properties": [
+                {
+                    "name": "action",
+                    "value": null
+                },
+                {
+                    "name": "post_skill",
+                    "value": null
+                }
+            ],
+            "connections": []
+        }
+    ]
+}

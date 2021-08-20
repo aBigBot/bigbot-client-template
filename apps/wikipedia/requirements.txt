@@ -1,0 +1,6 @@
+pytest
+pytest-mock
+requests
+textdistance
+spacy==3.0.3
+en_core_web_sm

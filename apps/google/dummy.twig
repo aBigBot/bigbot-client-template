@@ -1,0 +1,21 @@
+{% load toolkit %}
+{% if result %}
+We have scheduled {{input.summary}}. With following booking slots:
+{% for item in result %}
+    </br>
+    <p>Form {{ item.start | format_event_date }} to {{ item.end | format_event_date }}.</p>
+{% endfor %}
+{% else %}
+Unable to complete your request.
+{% endif %}
+
+{% load toolkit %}
+{% if result %}
+We appointment {{result.summary}} has been booked <p>Form {{ result.start | format_event_date }} to {{ result.end | format_event_date }}.</p>
+{% else %}
+Unable to complete your request.
+{% endif %}
+
+
+{{user}}, you all set for {{result.meeting_type}}, we keep you posted for appointment schedule.
+

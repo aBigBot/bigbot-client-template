@@ -1,0 +1,16 @@
+[tool.black]
+line-length = 100
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "project.settings"
+filterwarnings = [
+    "ignore:.* is deprecated",
+]
+python_files = [
+    "Test*.py",
+    "test_*.py",
+    "*_tests.py",
+]
+testpaths = [
+    "tests",
+]

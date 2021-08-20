@@ -1,0 +1,13 @@
+{
+  "name": "Google event",
+  "version": "1.0.0",
+  "maintainer" : "Jonathan Lee <jonathan@bigbot.ai>",
+  "summary": "Bigbot Google Calendar",
+  "description": "Google Calendar is a time-management and scheduling calendar service.",
+  "category": "productivity",
+  "cover": "https://neilpatel.com/wp-content/uploads/2015/12/google.jpg",
+  "author": "BIG BOTS (PRIVATE LIMITED)",
+  "website": "https://bigbot.ai",
+  "auto_install": true,
+  "signed_packages":["com.bits.google.create.event"]
+}
